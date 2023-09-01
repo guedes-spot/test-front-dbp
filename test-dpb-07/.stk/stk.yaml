@@ -7,6 +7,7 @@ metadata:
   stack: deploy-by-plugin
 spec:
   type: infra
+  infra-id: 01H98KBPFXFDJAF5VMJ22WVHCY
   plugins:
     - name: studio-front-qa/deploy-by-plugin@0.0.1/s3-bucket@0.0.2
       alias: s3-bucket
