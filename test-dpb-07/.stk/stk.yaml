@@ -1,0 +1,49 @@
+schema-version: v2
+kind: manifest
+metadata:
+  name: test-dpb-07
+  description: test-dpb-07
+  stack-version-id: 01H826R92EA68VNHYXGZFD9D3E
+  stack: deploy-by-plugin
+spec:
+  type: infra
+  infra-id: 01H98KBPFXFDJAF5VMJ22WVHCY
+  plugins:
+    - name: studio-front-qa/deploy-by-plugin@0.0.1/s3-bucket@0.0.2
+      alias: s3-bucket
+      plugin-version-id: 01H7GJZ43FWTV2F0WNKWS1H804
+      stack-version-id: 01H826R92EA68VNHYXGZFD9D3E
+      type: infra
+      inputs:
+        name: front-test-dbp-s3-bucket
+      inputs-envs: {}
+      connections:
+        generates:
+          - type: aws-s3-conn
+            selected: front-test-dbp-s3-bucket
+            alias: aws-s3-conn-dbp
+        requires: []
+      links:
+        generates: []
+    - name: studio-front-qa/deploy-by-plugin@0.0.1/s3-double-publish@0.0.2
+      alias: s3-double-publish
+      plugin-version-id: 01H7GK67EG1MH8C992C15ZZT4F
+      stack-version-id: 01H826R92EA68VNHYXGZFD9D3E
+      type: infra
+      inputs:
+        name: front-test-dbp-s3-bucket-double
+        path: stackspot
+      inputs-envs: {}
+      connections:
+        generates: []
+        requires:
+          - type: aws-s3-conn
+            selected: front-test-dbp-s3-bucket
+            alias: aws-s3-conn-dbp-1
+          - type: aws-s3-conn
+            selected: conn-front-s3
+            alias: aws-s3-conn-dbp-2
+      links:
+        generates: []
+  global-inputs: {}
+  global-computed-inputs: {}
